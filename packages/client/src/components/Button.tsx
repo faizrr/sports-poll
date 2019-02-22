@@ -10,6 +10,7 @@ type ButtonProps = {
 
 const greenColors = css`
   background: ${COLORS.GREEN};
+  color: ${COLORS.WHITE};
 
   &:hover {
     background: ${lighten(0.1, COLORS.GREEN)};
@@ -31,6 +32,7 @@ const Button = styled.button`
   font-weight: 700;
   font-size: 20px;
   cursor: pointer;
+  text-transform: uppercase;
 
   ${(props: ButtonProps) => props.color === 'white' && whiteColors};
   ${(props: ButtonProps) => props.color === 'green' && greenColors};
