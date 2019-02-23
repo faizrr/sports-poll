@@ -23,11 +23,15 @@ const Category = styled.div`
 
 const EventRoulette = () => {
   const [list, { set }] = useList<EventType>()
+  const [category, setCategory] = useState('')
+
   const [index, setIndex] = useState(0)
 
   const loadGames = async () => {
-    const data = await Api.getGames()
-    set(data)
+    const { list, category: newCategory } = await Api.getGames()
+
+    set(list)
+    setCategory(newCategory)
   }
 
   useEffect(() => {
@@ -45,13 +49,14 @@ const EventRoulette = () => {
 
   return (
     <>
-      <Category>Category: football</Category>
+      <Category>Category: {category}</Category>
 
       <Event
         awayName={game.awayName}
         homeName={game.homeName}
         group={game.group}
         country={game.country}
+        sport={game.sport}
         withVoteButtons
         onSubmit={() => setIndex(index + 1)}
       />
