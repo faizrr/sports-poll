@@ -9,6 +9,7 @@ type VoteButtonProps = {
   votesNumber: number
   children: any
   className?: string
+  onSubmit?: () => void
 }
 
 const VotesNumber = styled.div`
@@ -22,9 +23,13 @@ const Button = styled(ButtonBase)`
 `
 
 const VoteButton = (props: VoteButtonProps) => {
+  // TODO: useContext for auth state
+
   return (
     <div className={props.className}>
-      <Button color="green">{props.children}</Button>
+      <Button onClick={props.onSubmit} color="green">
+        {props.children}
+      </Button>
       <VotesNumber>{props.votesNumber} votes</VotesNumber>
     </div>
   )

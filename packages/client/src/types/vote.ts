@@ -1,8 +1,12 @@
 import Event from './event'
 
-type Vote = {
-  event: Event
-  voteType: 'home' | 'draw' | 'away'
+export enum VoteType {
+  home = 'home',
+  draw = 'draw',
+  away = 'away',
 }
 
-export default Vote
+export type Vote = {
+  event: Event
+  voteType: VoteType
+}

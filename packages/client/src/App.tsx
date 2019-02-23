@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import styled from '@emotion/styled'
 
-import Event from './components/Event'
 import VotedEvents from './components/VotedEvents'
+import { VotesProvider } from './dataContexts/votes'
 
 import * as COLORS from './constants/colors'
 
 import backgroundSrc from './background.jpg'
+import EventRoulette from './components/EventRoulette'
 
 const Wrapper = styled.div`
   background: #000;
@@ -47,66 +48,23 @@ const Title = styled.h1`
   padding: 0;
   text-align: center;
 `
-const Category = styled.div`
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: ${COLORS.WHITE};
-  text-align: center;
-  margin-bottom: 20px;
-`
 
 class App extends Component {
   render() {
     return (
-      <Wrapper>
-        <FirstPageContent>
-          <Title>Who would win?</Title>
-          <Category>Category: football</Category>
+      <VotesProvider>
+        <Wrapper>
+          <FirstPageContent>
+            <Title>Who would win?</Title>
 
-          <Event
-            awayName="Panthrakikos Komotini"
-            homeName="Chania FC"
-            group="Greek Cup"
-            country="ENGLAND"
-            withVoteButtons
-          />
-        </FirstPageContent>
+            <EventRoulette />
+          </FirstPageContent>
 
-        <div>
-          <VotedEvents
-            votes={[
-              {
-                event: {
-                  awayName: 'foo',
-                  homeName: 'bar',
-                  group: 'aaa',
-                  country: 'SE',
-                },
-                voteType: 'home',
-              },
-              {
-                event: {
-                  awayName: 'foo',
-                  homeName: 'bar',
-                  group: 'aaa',
-                  country: 'SE',
-                },
-                voteType: 'home',
-              },
-              {
-                event: {
-                  awayName: 'foo',
-                  homeName: 'bar',
-                  group: 'aaa',
-                  country: 'SE',
-                },
-                voteType: 'home',
-              },
-            ]}
-          />
-        </div>
-      </Wrapper>
+          <div>
+            <VotedEvents />
+          </div>
+        </Wrapper>
+      </VotesProvider>
     )
   }
 }

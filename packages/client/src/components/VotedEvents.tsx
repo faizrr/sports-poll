@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import styled from '@emotion/styled'
 
 import EventBase from './Event'
-import Vote from '../types/vote'
 
-type VotedEventsProps = {
-  votes: Array<Vote>
-}
+import Api from '../services/api'
+
+import { VotesContext } from '../dataContexts/votes'
 
 const Event = styled(EventBase)`
   margin-bottom: 20px;
@@ -16,10 +15,24 @@ const Event = styled(EventBase)`
   }
 `
 
-const VotedEvents = (props: VotedEventsProps) => {
+const VotedEvents = () => {
+  const {
+    list,
+    actions: { set },
+  } = useContext(VotesContext)
+
+  const fetchData = async () => {
+    const data = await Api.getVotes()
+    set(data)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   return (
     <div>
-      {props.votes.map(({ event, voteType }) => (
+      {list.map(({ event, voteType }) => (
         <Event
           key={event.id}
           withVoteButtons={false}

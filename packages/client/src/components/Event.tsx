@@ -7,12 +7,13 @@ import VoteButtonBase from './VoteButton'
 import TeamCard from './TeamCard'
 
 import EventType from '../types/event'
-import VoteType from '../types/vote'
+import { Vote as VoteType } from '../types/vote'
 
 interface EventProps extends EventType {
   withVoteButtons: boolean
   voteType?: VoteType['voteType']
   className?: string
+  onSubmit?: () => void
 }
 
 const Container = styled.div`
@@ -69,9 +70,15 @@ const Event = (props: EventProps) => {
 
       {props.withVoteButtons ? (
         <ButtonsWrapper>
-          <VoteButton votesNumber={10}>home team</VoteButton>
-          <VoteButton votesNumber={20}>draw</VoteButton>
-          <VoteButton votesNumber={40}>away team</VoteButton>
+          <VoteButton onSubmit={props.onSubmit} votesNumber={10}>
+            home team
+          </VoteButton>
+          <VoteButton onSubmit={props.onSubmit} votesNumber={20}>
+            draw
+          </VoteButton>
+          <VoteButton onSubmit={props.onSubmit} votesNumber={40}>
+            away team
+          </VoteButton>
         </ButtonsWrapper>
       ) : (
         <div>You voted for:</div>
