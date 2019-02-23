@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from 'react'
 import styled from '@emotion/styled'
-import Event from './Event'
 
 // constants
 import * as COLORS from '../constants/colors'
@@ -11,6 +10,10 @@ import EventType, { SportTypes } from '../types/event'
 // services
 import Api from '../services/api'
 
+// Components
+import Event from './Event'
+import ButtonBase from './Button'
+
 const Category = styled.div`
   font-size: 15px;
   text-transform: uppercase;
@@ -18,6 +21,21 @@ const Category = styled.div`
   color: ${COLORS.WHITE};
   text-align: center;
   margin-bottom: 20px;
+`
+const Placeholder = styled.div`
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: ${COLORS.WHITE};
+  text-align: center;
+  margin-bottom: 20px;
+`
+const NoGamesWrapper = styled.div``
+const Button = styled(ButtonBase)`
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 100px;
+  display: block;
 `
 
 type State = {
@@ -71,6 +89,8 @@ const EventRoulette = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const loadGames = async () => {
+    dispatch({ type: ActionType.startLoading })
+
     const { list, category } = await Api.getGames()
 
     dispatch({
@@ -85,12 +105,24 @@ const EventRoulette = () => {
   }, [])
 
   if (!state.loaded) {
-    return <div>loading...</div>
+    return <Placeholder>loading...</Placeholder>
   }
 
   const game = state.list[state.eventIndex]
   if (!game) {
-    return <div>no games. do you want to check other category?</div>
+    return (
+      <NoGamesWrapper>
+        <Placeholder>
+          no games left.
+          <br />
+          do you want to check other category?
+        </Placeholder>
+
+        <Button color="green" onClick={() => loadGames()}>
+          YES
+        </Button>
+      </NoGamesWrapper>
+    )
   }
 
   return (
