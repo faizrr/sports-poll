@@ -25,6 +25,18 @@ class API {
       voteType: VoteType.home,
     }))
   }
+
+  login(values: { login: string; password: string }) {
+    return {
+      token: 'abcdef',
+    }
+  }
+
+  signUp(values: { login: string; password: string }) {
+    return {
+      token: 'abcdef',
+    }
+  }
 }
 
 export default new API()

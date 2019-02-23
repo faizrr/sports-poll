@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 
 import VotedEvents from './components/VotedEvents'
 import { VotesProvider } from './dataContexts/votes'
+import { AuthProvider } from './dataContexts/auth'
 
 import * as COLORS from './constants/colors'
 
@@ -52,19 +53,21 @@ const Title = styled.h1`
 class App extends Component {
   render() {
     return (
-      <VotesProvider>
-        <Wrapper>
-          <FirstPageContent>
-            <Title>Who would win?</Title>
+      <AuthProvider>
+        <VotesProvider>
+          <Wrapper>
+            <FirstPageContent>
+              <Title>Who would win?</Title>
 
-            <EventRoulette />
-          </FirstPageContent>
+              <EventRoulette />
+            </FirstPageContent>
 
-          <div>
-            <VotedEvents />
-          </div>
-        </Wrapper>
-      </VotesProvider>
+            <div>
+              <VotedEvents />
+            </div>
+          </Wrapper>
+        </VotesProvider>
+      </AuthProvider>
     )
   }
 }

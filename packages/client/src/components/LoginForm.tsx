@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form, Field } from 'react-final-form'
+import { FORM_ERROR } from 'final-form'
 
 // Components
 import Input from './Input'
@@ -8,9 +9,25 @@ import { Button } from './AuthPopup'
 // Validations
 import { required } from '../helpers/formValidations'
 
-const LoginForm = () => {
-  const onSubmit = (values: any) => {
-    console.log(values)
+// Contexts
+import { AuthContext } from '../dataContexts/auth'
+
+// Services
+import Api from '../services/api'
+
+const LoginForm = (props: { closePopup: () => void }) => {
+  const { setToken } = useContext(AuthContext)
+
+  const onSubmit = async (values: any) => {
+    try {
+      const { token } = await Api.login(values)
+      setToken(token)
+      props.closePopup()
+    } catch (e) {
+      return {
+        [FORM_ERROR]: 'oops',
+      }
+    }
   }
 
   return (

@@ -41,7 +41,7 @@ const VoteButton = (props: VoteButtonProps) => {
   return (
     <div className={props.className}>
       {showPopup ? (
-        <AuthPopup onBackgroundClick={() => changePopupState(false)} />
+        <AuthPopup closePopup={() => changePopupState(false)} />
       ) : null}
 
       <Button onClick={onSubmit} color="green">

@@ -11,7 +11,7 @@ import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
 
 type Props = {
-  onBackgroundClick: () => void
+  closePopup: () => void
 }
 enum FormType {
   SignIn,
@@ -80,9 +80,8 @@ const AuthPopup = (props: Props) => {
   }
 
   const onBackgroundClick = function(event: React.MouseEvent<HTMLElement>) {
-    event.preventDefault()
     if (event.target === event.currentTarget) {
-      props.onBackgroundClick()
+      props.closePopup()
     }
   }
 
@@ -93,8 +92,12 @@ const AuthPopup = (props: Props) => {
           {currentForm === FormType.SignIn ? 'Sign in' : 'Register'}
         </Title>
 
-        {currentForm === FormType.SignIn ? <LoginForm /> : null}
-        {currentForm === FormType.SignUp ? <SignUpForm /> : null}
+        {currentForm === FormType.SignIn ? (
+          <LoginForm closePopup={props.closePopup} />
+        ) : null}
+        {currentForm === FormType.SignUp ? (
+          <SignUpForm closePopup={props.closePopup} />
+        ) : null}
 
         <BottomText onClick={onChangeFromClick}>
           {currentForm === FormType.SignIn ? 'Register' : 'Sign in'}

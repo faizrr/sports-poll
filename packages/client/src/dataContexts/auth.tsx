@@ -5,12 +5,12 @@ type Props = {
 }
 
 export const AuthContext = createContext({
-  token: null,
-  setToken: function() {} as React.Dispatch<React.SetStateAction<null>>,
+  token: '',
+  setToken: function() {} as React.Dispatch<React.SetStateAction<string>>,
 })
 
 export const AuthProvider = (props: Props) => {
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState('')
 
   return (
     <AuthContext.Provider value={{ token, setToken }}>
