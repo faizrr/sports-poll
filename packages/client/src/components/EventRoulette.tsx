@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useList } from 'react-use'
+import React, { useEffect, useReducer } from 'react'
 import styled from '@emotion/styled'
 import Event from './Event'
 
@@ -7,7 +6,7 @@ import Event from './Event'
 import * as COLORS from '../constants/colors'
 
 // types
-import EventType from '../types/event'
+import EventType, { SportTypes } from '../types/event'
 
 // services
 import Api from '../services/api'
@@ -21,35 +20,82 @@ const Category = styled.div`
   margin-bottom: 20px;
 `
 
-const EventRoulette = () => {
-  const [list, { set }] = useList<EventType>()
-  const [category, setCategory] = useState('')
+type State = {
+  loaded: boolean
+  list: EventType[]
+  category: SportTypes | null
+  eventIndex: number
+}
 
-  const [index, setIndex] = useState(0)
+enum ActionType {
+  startLoading,
+  setData,
+  nextEvent,
+}
+type SetDataAction = {
+  type: ActionType.setData
+  list: EventType[]
+  category: SportTypes
+}
+type RestAction = {
+  type: ActionType.startLoading | ActionType.nextEvent
+}
+type Action = SetDataAction | RestAction
+
+const initialState = {
+  loaded: false,
+  list: [] as EventType[],
+  category: null,
+  eventIndex: 0,
+}
+
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case ActionType.setData:
+      return {
+        loaded: true,
+        list: action.list,
+        category: action.category,
+        eventIndex: 0,
+      }
+    case ActionType.startLoading:
+      return initialState
+    case ActionType.nextEvent:
+      return { ...state, eventIndex: state.eventIndex + 1 }
+    default:
+      throw new Error()
+  }
+}
+
+const EventRoulette = () => {
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   const loadGames = async () => {
-    const { list, category: newCategory } = await Api.getGames()
+    const { list, category } = await Api.getGames()
 
-    set(list)
-    setCategory(newCategory)
+    dispatch({
+      type: ActionType.setData,
+      list,
+      category,
+    })
   }
 
   useEffect(() => {
     loadGames()
   }, [])
 
-  if (!list.length) {
+  if (!state.loaded) {
     return <div>loading...</div>
   }
 
-  const game = list[index]
+  const game = state.list[state.eventIndex]
   if (!game) {
     return <div>no games. do you want to check other category?</div>
   }
 
   return (
     <>
-      <Category>Category: {category}</Category>
+      <Category>Category: {state.category}</Category>
 
       <Event
         awayName={game.awayName}
@@ -58,7 +104,7 @@ const EventRoulette = () => {
         country={game.country}
         sport={game.sport}
         withVoteButtons
-        onSubmit={() => setIndex(index + 1)}
+        onSubmit={() => dispatch({ type: ActionType.nextEvent })}
       />
     </>
   )
