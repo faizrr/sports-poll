@@ -85,6 +85,23 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
+const getHumanReadableCategory = (sport: SportTypes | null) => {
+  switch (sport) {
+    case SportTypes.Football:
+      return 'Football'
+    case SportTypes.Handball:
+      return 'Handball'
+    case SportTypes.IceHockey:
+      return 'Ice hockey'
+    case SportTypes.Tennis:
+      return 'Tennis'
+    case SportTypes.Snooker:
+      return 'Snooker'
+    default:
+      return ''
+  }
+}
+
 const EventRoulette = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -127,7 +144,7 @@ const EventRoulette = () => {
 
   return (
     <>
-      <Category>Category: {state.category}</Category>
+      <Category>Category: {getHumanReadableCategory(state.category)}</Category>
 
       <Event
         awayName={game.awayName}
