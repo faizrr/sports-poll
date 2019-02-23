@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from '@emotion/styled'
 
+// Components
 import ButtonBase from './Button'
+import AuthPopup from './AuthPopup'
 
+// Constants
 import * as COLORS from '../constants/colors'
+
+// Contexts
+import { AuthContext } from '../dataContexts/auth'
 
 type VoteButtonProps = {
   votesNumber: number
@@ -23,11 +29,20 @@ const Button = styled(ButtonBase)`
 `
 
 const VoteButton = (props: VoteButtonProps) => {
-  // TODO: useContext for auth state
+  const { token } = useContext(AuthContext)
+  const [showPopup, changePopupState] = useState(false)
+
+  const onSubmit = token
+    ? props.onSubmit
+    : () => {
+        changePopupState(true)
+      }
 
   return (
     <div className={props.className}>
-      <Button onClick={props.onSubmit} color="green">
+      {showPopup ? <AuthPopup /> : null}
+
+      <Button onClick={onSubmit} color="green">
         {props.children}
       </Button>
       <VotesNumber>{props.votesNumber} votes</VotesNumber>
