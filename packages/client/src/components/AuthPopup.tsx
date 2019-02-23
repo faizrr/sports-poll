@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import styled from '@emotion/styled'
-import { Form, Field } from 'react-final-form'
 
 // Constants
 import * as COLORS from '../constants/colors'
 
 // Components
-import Input from './Input'
 import ButtonBase from './Button'
+import LoginForm from './LoginForm'
+import SignUpForm from './SignUpForm'
 
 type Props = {
   onBackgroundClick: () => void
+}
+enum FormType {
+  SignIn,
+  SignUp,
 }
 
 const Wrapper = styled.div`
@@ -30,13 +34,25 @@ const Popup = styled.div`
   border-radius: 15px;
   background: ${COLORS.WHITE};
   padding: 15px;
+  text-align: center;
 `
 const Title = styled.div`
-  text-align: center;
   text-transform: uppercase;
   margin-bottom: 20px;
 `
-const Button = styled(ButtonBase)`
+const BottomText = styled.div`
+  margin-top: 20px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: ${COLORS.GRAY};
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`
+export const Button = styled(ButtonBase)`
   width: 100%;
   margin-top: 20px;
   height: 50px;
@@ -54,8 +70,13 @@ const AuthPopup = (props: Props) => {
     }
   })
 
-  const onSubmit = (values: any) => {
-    console.log(values)
+  const [currentForm, changeCurrentForm] = useState(FormType.SignIn)
+  const onChangeFromClick = () => {
+    if (currentForm === FormType.SignIn) {
+      changeCurrentForm(FormType.SignUp)
+    } else if (currentForm === FormType.SignUp) {
+      changeCurrentForm(FormType.SignIn)
+    }
   }
 
   const onBackgroundClick = function(event: React.MouseEvent<HTMLElement>) {
@@ -68,28 +89,16 @@ const AuthPopup = (props: Props) => {
   return ReactDOM.createPortal(
     <Wrapper onClick={onBackgroundClick}>
       <Popup>
-        <Title>Log in</Title>
+        <Title>
+          {currentForm === FormType.SignIn ? 'Sign in' : 'Register'}
+        </Title>
 
-        <Form
-          onSubmit={onSubmit}
-          render={({ handleSubmit }) => {
-            return (
-              <form onSubmit={handleSubmit}>
-                <Field name="login" label="Login" component={Input} />
-                <Field
-                  name="password"
-                  label="Password"
-                  component={Input}
-                  type="password"
-                />
+        {currentForm === FormType.SignIn ? <LoginForm /> : null}
+        {currentForm === FormType.SignUp ? <SignUpForm /> : null}
 
-                <Button color="green" type="submit">
-                  Log in
-                </Button>
-              </form>
-            )
-          }}
-        />
+        <BottomText onClick={onChangeFromClick}>
+          {currentForm === FormType.SignIn ? 'Register' : 'Sign in'}
+        </BottomText>
       </Popup>
     </Wrapper>,
     domNode
