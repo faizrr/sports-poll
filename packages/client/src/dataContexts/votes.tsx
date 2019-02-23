@@ -1,6 +1,5 @@
 import React, { createContext } from 'react'
-import { useList } from 'react-use'
-import { Actions } from 'react-use/lib/useList'
+import useList, { Actions } from 'react-use/lib/useList'
 
 import { Vote } from '../types/vote'
 
