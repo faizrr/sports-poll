@@ -15,12 +15,20 @@ const greenColors = css`
   &:hover {
     background: ${lighten(0.1, COLORS.GREEN)};
   }
+
+  &:active {
+    background: ${darken(0.1, COLORS.GREEN)};
+  }
 `
 const whiteColors = css`
   background: ${COLORS.WHITE};
 
   &:hover {
     background: ${darken(0.1, COLORS.WHITE)};
+  }
+
+  &:active {
+    background: ${darken(0.2, COLORS.WHITE)};
   }
 `
 
