@@ -36,6 +36,10 @@ const Button = styled.button`
 
   ${(props: ButtonProps) => props.color === 'white' && whiteColors};
   ${(props: ButtonProps) => props.color === 'green' && greenColors};
+
+  &:focus {
+    outline: 0;
+  }
 `
 
 export default Button
