@@ -5,6 +5,7 @@ type Props = {
   children: any
 }
 
+// TODO: replace any with real types
 export const AuthContext = createContext({
   token: '',
   setToken: (() => undefined) as any,
