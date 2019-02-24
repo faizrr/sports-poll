@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext } from 'react'
+import useCookie from '../hooks/useCookie'
 
 type Props = {
   children: any
@@ -6,14 +7,15 @@ type Props = {
 
 export const AuthContext = createContext({
   token: '',
-  setToken: function() {} as React.Dispatch<React.SetStateAction<string>>,
+  setToken: (() => undefined) as any,
+  removeToken: (() => undefined) as any,
 })
 
 export const AuthProvider = (props: Props) => {
-  const [token, setToken] = useState('')
+  const [token, setToken, removeToken] = useCookie('authToken', '')
 
   return (
-    <AuthContext.Provider value={{ token, setToken }}>
+    <AuthContext.Provider value={{ token, setToken, removeToken }}>
       {props.children}
     </AuthContext.Provider>
   )
