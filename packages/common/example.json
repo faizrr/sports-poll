@@ -2,7 +2,7 @@
   {
     "awayName": "Panthrakikos Komotini",
     "createdAt": "2015-12-18T12:30:39.228Z",
-    "group": "Greek Cup",
+    "groupName": "Greek Cup",
     "homeName": "Chania FC",
     "id": 1002916450,
     "name": "Chania FC - Panthrakikos Komotini",
@@ -14,7 +14,7 @@
   {
     "awayName": "PAOK Thessaloniki",
     "createdAt": "2015-12-18T12:30:39.234Z",
-    "group": "Greek Cup",
+    "groupName": "Greek Cup",
     "homeName": "Olympiakos Volos",
     "id": 1002916451,
     "name": "Olympiakos Volos - PAOK Thessaloniki",
@@ -26,7 +26,7 @@
   {
     "awayName": "Ukraine U18",
     "createdAt": "2015-12-18T12:30:39.244Z",
-    "group": "Under 18",
+    "groupName": "Under 18",
     "homeName": "Israel U18",
     "id": 1003022920,
     "name": "Israel U18 - Ukraine U18",
@@ -38,7 +38,7 @@
   {
     "awayName": "Stade Gabesien",
     "createdAt": "2015-12-18T12:30:39.249Z",
-    "group": "Ligue 1",
+    "groupName": "Ligue 1",
     "homeName": "CA Bizertin",
     "id": 1003015194,
     "name": "CA Bizertin - Stade Gabesien",
@@ -50,7 +50,7 @@
   {
     "awayName": "AS de la Marsa",
     "createdAt": "2015-12-18T12:30:39.255Z",
-    "group": "Ligue 1",
+    "groupName": "Ligue 1",
     "homeName": "Club Africain",
     "id": 1003015197,
     "name": "Club Africain - AS de la Marsa",
@@ -62,7 +62,7 @@
   {
     "awayName": "Kastamonuspor",
     "createdAt": "2015-12-18T12:30:39.261Z",
-    "group": "T\u00fcrkyie Kupasi",
+    "groupName": "T\u00fcrkyie Kupasi",
     "homeName": "Kar\u015f\u0131yaka",
     "id": 1003016331,
     "name": "Kar\u015f\u0131yaka - Kastamonuspor",
@@ -74,7 +74,7 @@
   {
     "awayName": "Allen, Gareth",
     "createdAt": "2015-12-18T12:30:39.266Z",
-    "group": "German Masters Qualifiers",
+    "groupName": "German Masters Qualifiers",
     "homeName": "Ding Junhui",
     "id": 1003018193,
     "name": "Ding Junhui - Allen, Gareth",
@@ -86,7 +86,7 @@
   {
     "awayName": "Lines, Peter",
     "createdAt": "2015-12-18T12:30:39.272Z",
-    "group": "German Masters Qualifiers",
+    "groupName": "German Masters Qualifiers",
     "homeName": "Trump, Judd",
     "id": 1003018186,
     "name": "Trump, Judd - Lines, Peter",
@@ -98,7 +98,7 @@
   {
     "awayName": "SKIF-Krasnodar",
     "createdAt": "2015-12-18T12:30:39.278Z",
-    "group": "Cup",
+    "groupName": "Cup",
     "homeName": "Dinamo Astrakhan",
     "id": 1003027200,
     "name": "Dinamo Astrakhan - SKIF-Krasnodar",
@@ -110,7 +110,7 @@
   {
     "awayName": "THK Tver",
     "createdAt": "2015-12-18T12:30:39.283Z",
-    "group": "VHL",
+    "groupName": "VHL",
     "homeName": "Zauralie Kurgan",
     "id": 1002988754,
     "name": "Zauralie Kurgan - THK Tver",
@@ -120,12 +120,12 @@
     "state": "STARTED"
   },
   {
-    "awayName": "Doumbia, S\/Reboul, F",
+    "awayName": "Doumbia, S/Reboul, F",
     "createdAt": "2015-12-18T12:30:39.289Z",
-    "group": "Nigeria",
-    "homeName": "Harris, L G M\/Maamoun, K M",
+    "groupName": "Nigeria",
+    "homeName": "Harris, L G M/Maamoun, K M",
     "id": 1003026313,
-    "name": "Harris, L G M\/Maamoun, K M - Doumbia, S\/Reboul, F",
+    "name": "Harris, L G M/Maamoun, K M - Doumbia, S/Reboul, F",
     "objectId": "JxrZyQKTrw",
     "sport": "TENNIS",
     "country": "FRANCE",
@@ -134,7 +134,7 @@
   {
     "awayName": "Halebian, Alexios",
     "createdAt": "2015-12-18T12:30:39.294Z",
-    "group": "Dominican Republic",
+    "groupName": "Dominican Republic",
     "homeName": "Bangoura, Sekou",
     "id": 1003026667,
     "name": "Bangoura, Sekou - Halebian, Alexios",
@@ -146,7 +146,7 @@
   {
     "awayName": "Roberts, Justin",
     "createdAt": "2015-12-18T12:30:39.300Z",
-    "group": "Dominican Republic",
+    "groupName": "Dominican Republic",
     "homeName": "Pla Malfeito, Jaume",
     "id": 1003026666,
     "name": "Pla Malfeito, Jaume - Roberts, Justin",
@@ -158,7 +158,7 @@
   {
     "awayName": "Mridha, J",
     "createdAt": "2015-12-18T12:30:39.306Z",
-    "group": "Qatar",
+    "groupName": "Qatar",
     "homeName": "Clayton, Scott",
     "id": 1003026476,
     "name": "Clayton, Scott - Mridha, J",
@@ -168,24 +168,24 @@
     "state": "STARTED"
   },
   {
-    "awayName": "Kania, P\/Kerkhove, L",
+    "awayName": "Kania, P/Kerkhove, L",
     "createdAt": "2015-12-18T12:30:39.311Z",
-    "group": "Ankara",
-    "homeName": "Buyukakcay, C\/Krunic, A",
+    "groupName": "Ankara",
+    "homeName": "Buyukakcay, C/Krunic, A",
     "id": 1003026234,
-    "name": "Buyukakcay, C\/Krunic, A - Kania, P\/Kerkhove, L",
+    "name": "Buyukakcay, C/Krunic, A - Kania, P/Kerkhove, L",
     "objectId": "mTVUIuYdbF",
     "sport": "TENNIS",
     "country": "SWEDEN",
     "state": "NOT_STARTED"
   },
   {
-    "awayName": "Chernetsova, D\/Perper, A",
+    "awayName": "Chernetsova, D/Perper, A",
     "createdAt": "2015-12-18T12:30:39.317Z",
-    "group": "El Kantaoui",
-    "homeName": "Baskova, D\/Podlinska, M",
+    "groupName": "El Kantaoui",
+    "homeName": "Baskova, D/Podlinska, M",
     "id": 1003026673,
-    "name": "Baskova, D\/Podlinska, M - Chernetsova, D\/Perper, A",
+    "name": "Baskova, D/Podlinska, M - Chernetsova, D/Perper, A",
     "objectId": "heL53W56d2",
     "sport": "TENNIS",
     "country": "FRANCE",
@@ -194,7 +194,7 @@
   {
     "awayName": "Njoze, M",
     "createdAt": "2015-12-18T12:30:39.322Z",
-    "group": "El Kantaoui",
+    "groupName": "El Kantaoui",
     "homeName": "Stoilkovska, M",
     "id": 1003026214,
     "name": "Stoilkovska, M - Njoze, M",
@@ -206,7 +206,7 @@
   {
     "awayName": "Haas, Barbara",
     "createdAt": "2015-12-18T12:30:39.328Z",
-    "group": "Navi Mumbai",
+    "groupName": "Navi Mumbai",
     "homeName": "Jia-Jing Lu",
     "id": 1003026299,
     "name": "Jia-Jing Lu - Haas, Barbara",

@@ -3,19 +3,25 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-} from 'typeorm';
+  OneToMany,
+} from 'typeorm'
+
+import { Vote } from '../votes/votes.entity'
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column({ unique: true })
-  login: string;
+  login: string
 
   @Column()
-  passwordHash: string;
+  passwordHash: string
 
   @CreateDateColumn()
-  createdAt: string;
+  createdAt: string
+
+  @OneToMany(type => Vote, vote => vote.user)
+  votes: Promise<Vote[]>
 }

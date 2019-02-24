@@ -1,0 +1,12 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "username": "postgres",
+  "database": "sports-poll",
+  "synchronize": true,
+  "migrationsTableName": "custom_migration_table",
+  "migrations": ["src/migration/*{.ts,.js}"],
+  "cli": {
+    "migrationsDir": "migration"
+  }
+}
