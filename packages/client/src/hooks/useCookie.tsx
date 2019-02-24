@@ -24,6 +24,7 @@ export function useCookie(
   }
 
   const removeValue = (options: object) => {
+    setInnerValue('')
     Cookies.remove(key, { ...defaultOptions, ...options })
   }
 

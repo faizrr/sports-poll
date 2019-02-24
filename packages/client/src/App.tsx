@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
 import styled from '@emotion/styled'
 
+// Components
 import VotedEvents from './components/VotedEvents'
+import EventRoulette from './components/EventRoulette'
+import LoginButton from './components/LoginButton'
+
+// Contexts
 import { VotesProvider } from './dataContexts/votes'
 import { AuthProvider } from './dataContexts/auth'
 
+// Constants
 import * as COLORS from './constants/colors'
 
+// Images
 import backgroundSrc from './background.jpg'
-import EventRoulette from './components/EventRoulette'
 
 const Wrapper = styled.div`
   background: #000;
@@ -66,6 +72,8 @@ class App extends Component {
               <VotedEvents />
             </div>
           </Wrapper>
+
+          <LoginButton />
         </VotesProvider>
       </AuthProvider>
     )
