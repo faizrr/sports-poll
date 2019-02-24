@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 
 // constants
 import * as COLORS from '../constants/colors'
+import * as MEDIA_QUERIES from '../constants/mediaQueries'
 
 // types
 import EventType, { SportTypes } from '../types/event'
@@ -29,6 +30,14 @@ const Placeholder = styled.div`
   color: ${COLORS.WHITE};
   text-align: center;
   margin-bottom: 20px;
+
+  ${MEDIA_QUERIES.TABLET} {
+    font-size: 20px;
+  }
+
+  ${MEDIA_QUERIES.MOBILE} {
+    font-size: 15px;
+  }
 `
 const NoGamesWrapper = styled.div``
 const Button = styled(ButtonBase)`

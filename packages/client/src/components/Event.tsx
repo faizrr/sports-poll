@@ -1,11 +1,15 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
+// Constants
 import * as COLORS from '../constants/colors'
+import * as MEDIA_QUERIES from '../constants/mediaQueries'
 
+// Components
 import VoteButtonBase from './VoteButton'
 import TeamCard from './TeamCard'
 
+// Types
 import EventType from '../types/event'
 import { Vote as VoteType } from '../types/vote'
 
@@ -21,6 +25,10 @@ const Container = styled.div`
 
   background: ${COLORS.WHITE};
   border-radius: 15px;
+
+  ${MEDIA_QUERIES.MOBILE} {
+    font-size: 12px;
+  }
 `
 const GameDetails = styled.div`
   display: flex;
@@ -40,6 +48,10 @@ const ButtonsWrapper = styled.div`
 const VoteButton = styled(VoteButtonBase)`
   width: 40%;
   margin-left: 15px;
+
+  ${MEDIA_QUERIES.MOBILE} {
+    margin-left: 8px;
+  }
 
   &:first-child {
     margin-left: 0;

@@ -12,6 +12,7 @@ import { AuthProvider } from './dataContexts/auth'
 
 // Constants
 import * as COLORS from './constants/colors'
+import * as MEDIA_QUERIES from './constants/mediaQueries'
 
 // Images
 import backgroundSrc from './background.jpg'
@@ -20,8 +21,22 @@ const Wrapper = styled.div`
   background: #000;
   height: 200vh;
   width: 100%;
-  max-width: 800px;
+  max-width: 760px;
   margin: 0 auto;
+
+  ${MEDIA_QUERIES.TABLET} {
+    max-width: initial;
+    margin: 0;
+    padding: 0 40px;
+    width: calc(100% - 80px);
+  }
+
+  ${MEDIA_QUERIES.MOBILE} {
+    max-width: initial;
+    margin: 0;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+  }
 `
 const FirstPageContent = styled.div`
   height: 100vh;
@@ -45,6 +60,10 @@ const FirstPageContent = styled.div`
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  ${MEDIA_QUERIES.MOBILE} {
+    padding-top: 70px;
+  }
 `
 const Title = styled.h1`
   text-transform: uppercase;
@@ -54,6 +73,14 @@ const Title = styled.h1`
   margin: 0;
   padding: 0;
   text-align: center;
+
+  ${MEDIA_QUERIES.TABLET} {
+    font-size: 40px;
+  }
+
+  ${MEDIA_QUERIES.MOBILE} {
+    font-size: 29px;
+  }
 `
 
 class App extends Component {

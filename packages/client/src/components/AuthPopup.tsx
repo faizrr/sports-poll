@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 
 // Constants
 import * as COLORS from '../constants/colors'
+import * as MEDIA_QUERIES from '../constants/mediaQueries'
 
 // Components
 import ButtonBase from './Button'
@@ -35,6 +36,10 @@ const Popup = styled.div`
   background: ${COLORS.WHITE};
   padding: 15px;
   text-align: center;
+
+  ${MEDIA_QUERIES.MOBILE} {
+    width: calc(100% - 60px);
+  }
 `
 const Title = styled.div`
   text-transform: uppercase;

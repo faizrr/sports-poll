@@ -7,6 +7,7 @@ import AuthPopup from './AuthPopup'
 
 // Constants
 import * as COLORS from '../constants/colors'
+import * as MEDIA_QUERIES from '../constants/mediaQueries'
 
 // Contexts
 import { AuthContext } from '../dataContexts/auth'
@@ -26,6 +27,11 @@ const VotesNumber = styled.div`
 `
 const Button = styled(ButtonBase)`
   width: 100%;
+
+  ${MEDIA_QUERIES.MOBILE} {
+    height: 50px;
+    font-size: 14px;
+  }
 `
 
 const VoteButton = (props: VoteButtonProps) => {
