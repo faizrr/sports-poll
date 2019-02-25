@@ -4,9 +4,22 @@ import { SportTypes } from '../types/event'
 import Event from '../types/event'
 import { Vote, VoteType } from '../types/vote'
 
+import Cookie from 'js-cookie'
+
+import { AUTH_COOKIE_KEY } from '../dataContexts/auth'
+
+// TODO: refactor random generator
+let prevType: SportTypes
 function getRandomSportType(): SportTypes {
   const values = Object.values(SportTypes)
-  return values[Math.floor(Math.random() * values.length)]
+  const newValue = values[Math.floor(Math.random() * values.length)]
+
+  if (prevType === newValue) {
+    return getRandomSportType()
+  } else {
+    prevType = newValue
+    return newValue
+  }
 }
 
 const API_BASE = `http://localhost:5000`
@@ -34,12 +47,42 @@ function handleErrors(response: any) {
 }
 
 class API {
-  getGames(): { list: Array<Event>; category: SportTypes } {
-    const type = getRandomSportType()
+  async getAllGames(): Promise<{ list: Array<Event>; category: SportTypes }> {
+    await sleep(2000)
+
+    const sportType = getRandomSportType()
+    const response = await fetch(`${API_BASE}/games?sport=${sportType}`)
+    handleErrors(response)
+    const list = await response.json()
 
     return {
-      list: (jsonExample as Event[]).filter(e => e.sport === type),
-      category: type,
+      list: list,
+      category: sportType,
+    }
+  }
+
+  async getAvailableGames(): Promise<{
+    list: Array<Event>
+    category: SportTypes
+  }> {
+    await sleep(2000)
+
+    const token = Cookie.get(AUTH_COOKIE_KEY)
+    const sportType = getRandomSportType()
+    const response = await fetch(
+      `${API_BASE}/games/availableToVote?sport=${sportType}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    handleErrors(response)
+    const list = await response.json()
+
+    return {
+      list: list,
+      category: sportType,
     }
   }
 

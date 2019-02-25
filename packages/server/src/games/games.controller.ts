@@ -1,19 +1,21 @@
-import { Controller, Get, UseGuards, Req } from '@nestjs/common'
+import { Controller, Get, UseGuards, Req, Query } from '@nestjs/common'
 import { GamesService } from './games.service'
 import { AuthGuard } from '@nestjs/passport'
+
+import { GamesListDto } from './dto/list.dto'
 
 @Controller('games')
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
   @Get()
-  getGames() {
-    return this.gamesService.getAll()
+  getGames(@Query() params: GamesListDto) {
+    return this.gamesService.getAll(params.sport)
   }
 
   @Get('availableToVote')
   @UseGuards(AuthGuard())
-  getAvailableGames(@Req() request) {
-    return this.gamesService.getAvailableToVote(request.user)
+  getAvailableGames(@Req() request, @Query() params: GamesListDto) {
+    return this.gamesService.getAvailableToVote(request.user, params.sport)
   }
 }

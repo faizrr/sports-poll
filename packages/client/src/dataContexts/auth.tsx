@@ -5,6 +5,8 @@ type Props = {
   children: any
 }
 
+export const AUTH_COOKIE_KEY = 'authToken'
+
 // TODO: replace any with real types
 export const AuthContext = createContext({
   token: '',
@@ -13,7 +15,7 @@ export const AuthContext = createContext({
 })
 
 export const AuthProvider = (props: Props) => {
-  const [token, setToken, removeToken] = useCookie('authToken', '')
+  const [token, setToken, removeToken] = useCookie(AUTH_COOKIE_KEY, '')
 
   return (
     <AuthContext.Provider value={{ token, setToken, removeToken }}>

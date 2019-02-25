@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useContext } from 'react'
 import styled from '@emotion/styled'
 
 // constants
@@ -14,6 +14,9 @@ import Api from '../services/api'
 // Components
 import Event from './Event'
 import ButtonBase from './Button'
+
+// Contexts
+import { AuthContext } from '../dataContexts/auth'
 
 const Category = styled.div`
   font-size: 15px;
@@ -113,11 +116,19 @@ const getHumanReadableCategory = (sport: SportTypes | null) => {
 
 const EventRoulette = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const { token } = useContext(AuthContext)
 
   const loadGames = async () => {
     dispatch({ type: ActionType.startLoading })
 
-    const { list, category } = await Api.getGames()
+    let data
+    if (token) {
+      data = await Api.getAvailableGames()
+    } else {
+      data = await Api.getAllGames()
+    }
+
+    const { list, category } = data
 
     dispatch({
       type: ActionType.setData,
@@ -128,7 +139,7 @@ const EventRoulette = () => {
 
   useEffect(() => {
     loadGames()
-  }, [])
+  }, [token])
 
   if (!state.loaded) {
     return <Placeholder>loading...</Placeholder>

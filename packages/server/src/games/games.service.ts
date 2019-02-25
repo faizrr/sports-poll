@@ -6,6 +6,8 @@ import { User } from '../users/users.entity'
 
 import { Vote } from '../votes/votes.entity'
 
+import { Sport } from './enums'
+
 @Injectable()
 export class GamesService {
   constructor(
@@ -15,11 +17,17 @@ export class GamesService {
     private readonly votesRepository: Repository<Vote>
   ) {}
 
-  getAll() {
-    return this.gamesRepository.find()
+  getAll(sport: Sport) {
+    if (sport) {
+      return this.gamesRepository.find({
+        where: { sport },
+      })
+    } else {
+      return this.gamesRepository.find()
+    }
   }
 
-  async getAvailableToVote(user: User) {
+  async getAvailableToVote(user: User, sport: Sport) {
     const excludeSqlQuery = this.votesRepository
       .createQueryBuilder('vote')
       .innerJoin('vote.game', 'game')
@@ -30,6 +38,7 @@ export class GamesService {
     const availableGames = await this.gamesRepository
       .createQueryBuilder('game')
       .where(`game.id NOT IN (${excludeSqlQuery})`)
+      .where(`game.sport = :value`, { value: sport })
       .getMany()
 
     return availableGames
