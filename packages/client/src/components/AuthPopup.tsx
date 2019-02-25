@@ -64,13 +64,18 @@ export const Button = styled(ButtonBase)`
   font-size: 15px;
 `
 
-const domNode = document.querySelector('#authPopup') as Element
-
 const AuthPopup = (props: Props) => {
+  let node = document.createElement('div')
+
   useEffect(() => {
+    node.dataset.testid = 'authPortal'
+    document.body.prepend(node)
     ;(document.querySelector('body') as HTMLElement).style.overflow = 'hidden'
 
     return () => {
+      if (node && node.parentNode) {
+        node.parentNode.removeChild(node)
+      }
       ;(document.querySelector('body') as HTMLElement).style.overflow = null
     }
   })
@@ -91,7 +96,7 @@ const AuthPopup = (props: Props) => {
   }
 
   return ReactDOM.createPortal(
-    <Wrapper onClick={onBackgroundClick}>
+    <Wrapper onClick={onBackgroundClick} data-testid="authPopup">
       <Popup>
         <Title>
           {currentForm === FormType.SignIn ? 'Sign in' : 'Register'}
@@ -109,7 +114,7 @@ const AuthPopup = (props: Props) => {
         </BottomText>
       </Popup>
     </Wrapper>,
-    domNode
+    node
   )
 }
 
