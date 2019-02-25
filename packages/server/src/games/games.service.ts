@@ -43,4 +43,21 @@ export class GamesService {
 
     return availableGames
   }
+
+  async getAlreadyVoted(user: User) {
+    const includeSqlQuery = this.votesRepository
+      .createQueryBuilder('vote')
+      .innerJoin('vote.game', 'game')
+      .where(`vote."userId" = ${user.id}`)
+      .select('game.id')
+      .getSql()
+
+    const availableGames = await this.gamesRepository
+      .createQueryBuilder('game')
+      .where(`game.id IN (${includeSqlQuery})`)
+      .innerJoinAndSelect('game.votes', 'vote')
+      .getMany()
+
+    return availableGames
+  }
 }

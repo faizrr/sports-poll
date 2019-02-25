@@ -5,6 +5,7 @@ interface Event {
   country: string
   id?: number
   sport: SportTypes
+  state: string
 }
 
 export enum SportTypes {

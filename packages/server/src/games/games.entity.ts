@@ -38,6 +38,6 @@ export class Game {
   @CreateDateColumn()
   createdAt: string
 
-  @OneToMany(type => Vote, vote => vote.user)
+  @OneToMany(type => Vote, vote => vote.game)
   votes: Vote[]
 }

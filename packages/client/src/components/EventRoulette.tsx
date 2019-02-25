@@ -172,6 +172,7 @@ const EventRoulette = () => {
         groupName={game.groupName}
         country={game.country}
         sport={game.sport}
+        state={game.state}
         withVoteButtons
         onSubmit={() => dispatch({ type: ActionType.nextEvent })}
       />

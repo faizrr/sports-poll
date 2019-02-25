@@ -18,4 +18,10 @@ export class GamesController {
   getAvailableGames(@Req() request, @Query() params: GamesListDto) {
     return this.gamesService.getAvailableToVote(request.user, params.sport)
   }
+
+  @Get('voted')
+  @UseGuards(AuthGuard())
+  getAlreadyVoted(@Req() request) {
+    return this.gamesService.getAlreadyVoted(request.user)
+  }
 }

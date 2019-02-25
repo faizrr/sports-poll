@@ -19,7 +19,7 @@ import backgroundSrc from './background.jpg'
 
 const Wrapper = styled.div`
   background: #000;
-  height: 200vh;
+  min-height: 100vh;
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
@@ -39,12 +39,12 @@ const Wrapper = styled.div`
   }
 `
 const FirstPageContent = styled.div`
-  height: 100vh;
-  min-height: 700px;
   position: relative;
   z-index: 1;
+  min-height: 425px;
 
   padding-top: 100px;
+  padding-bottom: 50px;
 
   &:after {
     display: block;

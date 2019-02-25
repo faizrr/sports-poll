@@ -93,7 +93,10 @@ const Event = (props: EventProps) => {
           </VoteButton>
         </ButtonsWrapper>
       ) : (
-        <div>You voted for:</div>
+        <>
+          <div>You voted for: {props.voteType}</div>
+          <div>Game state: {props.state}</div>
+        </>
       )}
     </Container>
   )

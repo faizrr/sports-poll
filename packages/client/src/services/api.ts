@@ -86,10 +86,21 @@ class API {
     }
   }
 
-  getVotes(): Array<Vote> {
-    return ((jsonExample as unknown) as Event[]).map((e: Event) => ({
-      event: e,
-      voteType: VoteType.home,
+  async getVotes(): Promise<Vote[]> {
+    await sleep(2000)
+
+    const token = Cookie.get(AUTH_COOKIE_KEY)
+    const response = await fetch(`${API_BASE}/games/voted`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    handleErrors(response)
+    const list = await response.json()
+
+    return list.map((game: Event) => ({
+      event: game,
+      voteType: (game as any).votes[0].type,
     }))
   }
 

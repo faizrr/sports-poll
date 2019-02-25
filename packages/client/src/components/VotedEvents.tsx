@@ -6,6 +6,16 @@ import EventBase from './Event'
 import Api from '../services/api'
 
 import { VotesContext } from '../dataContexts/votes'
+import { AuthContext } from '../dataContexts/auth'
+
+const Heading = styled.div`
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+  text-transform: uppercase;
+`
 
 const Event = styled(EventBase)`
   margin-bottom: 20px;
@@ -20,6 +30,7 @@ const VotedEvents = () => {
     list,
     actions: { set },
   } = useContext(VotesContext)
+  const { token } = useContext(AuthContext)
 
   const fetchData = async () => {
     const data = await Api.getVotes()
@@ -27,11 +38,21 @@ const VotedEvents = () => {
   }
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    if (token) {
+      fetchData()
+    } else {
+      set([])
+    }
+  }, [token])
+
+  if (!list.length) {
+    return null
+  }
 
   return (
     <div>
+      <Heading>Previously voted events</Heading>
+
       {list.map(({ event, voteType }) => (
         <Event
           key={event.id}
