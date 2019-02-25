@@ -11,13 +11,13 @@ import TeamCard from './TeamCard'
 
 // Types
 import EventType from '../types/event'
-import { Vote as VoteType } from '../types/vote'
+import { VoteType, Vote as VoteInterface } from '../types/vote'
 
 interface EventProps extends EventType {
   withVoteButtons: boolean
-  voteType?: VoteType['voteType']
+  voteType?: VoteInterface['voteType']
   className?: string
-  onSubmit?: () => void
+  onSubmit?: (voteType: VoteType) => Promise<void>
 }
 
 const Container = styled.div`
@@ -62,6 +62,8 @@ const VoteButton = styled(VoteButtonBase)`
   }
 `
 
+const defaultOnSubmit: any = () => {}
+
 const Event = (props: EventProps) => {
   return (
     <Container className={props.className}>
@@ -82,13 +84,25 @@ const Event = (props: EventProps) => {
 
       {props.withVoteButtons ? (
         <ButtonsWrapper>
-          <VoteButton onSubmit={props.onSubmit} votesNumber={10}>
+          <VoteButton
+            onSubmit={props.onSubmit || defaultOnSubmit}
+            votesNumber={10}
+            type={VoteType.home}
+          >
             home team
           </VoteButton>
-          <VoteButton onSubmit={props.onSubmit} votesNumber={20}>
+          <VoteButton
+            onSubmit={props.onSubmit || defaultOnSubmit}
+            votesNumber={20}
+            type={VoteType.draw}
+          >
             draw
           </VoteButton>
-          <VoteButton onSubmit={props.onSubmit} votesNumber={40}>
+          <VoteButton
+            onSubmit={props.onSubmit || defaultOnSubmit}
+            votesNumber={40}
+            type={VoteType.away}
+          >
             away team
           </VoteButton>
         </ButtonsWrapper>

@@ -7,6 +7,7 @@ import * as MEDIA_QUERIES from '../constants/mediaQueries'
 
 // types
 import EventType, { SportTypes } from '../types/event'
+import { VoteType, Vote } from '../types/vote'
 
 // services
 import Api from '../services/api'
@@ -17,6 +18,7 @@ import ButtonBase from './Button'
 
 // Contexts
 import { AuthContext } from '../dataContexts/auth'
+import { VotesContext } from '../dataContexts/votes'
 
 const Category = styled.div`
   font-size: 15px;
@@ -60,7 +62,9 @@ type State = {
 enum ActionType {
   startLoading,
   setData,
-  nextEvent,
+  voteRequestStart,
+  voteRequestComplete,
+  voteRequestError,
 }
 type SetDataAction = {
   type: ActionType.setData
@@ -68,7 +72,11 @@ type SetDataAction = {
   category: SportTypes
 }
 type RestAction = {
-  type: ActionType.startLoading | ActionType.nextEvent
+  type:
+    | ActionType.startLoading
+    | ActionType.voteRequestStart
+    | ActionType.voteRequestComplete
+    | ActionType.voteRequestError
 }
 type Action = SetDataAction | RestAction
 
@@ -90,8 +98,23 @@ const reducer = (state: State, action: Action): State => {
       }
     case ActionType.startLoading:
       return initialState
-    case ActionType.nextEvent:
-      return { ...state, eventIndex: state.eventIndex + 1 }
+    case ActionType.voteRequestStart:
+      return {
+        ...state,
+        loaded: false,
+      }
+    case ActionType.voteRequestComplete:
+      return {
+        ...state,
+        loaded: true,
+        eventIndex: state.eventIndex + 1,
+      }
+    case ActionType.voteRequestError: {
+      return {
+        ...state,
+        loaded: false,
+      }
+    }
     default:
       throw new Error()
   }
@@ -117,6 +140,9 @@ const getHumanReadableCategory = (sport: SportTypes | null) => {
 const EventRoulette = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { token } = useContext(AuthContext)
+  const {
+    actions: { push: votesPush },
+  } = useContext(VotesContext)
 
   const loadGames = async () => {
     dispatch({ type: ActionType.startLoading })
@@ -162,6 +188,21 @@ const EventRoulette = () => {
     )
   }
 
+  const onVoteButtonClick = async (voteType: VoteType) => {
+    dispatch({ type: ActionType.voteRequestStart })
+
+    try {
+      await Api.voteForGame(state.list[state.eventIndex].id as number, voteType)
+      votesPush({
+        event: state.list[state.eventIndex],
+        voteType,
+      })
+      dispatch({ type: ActionType.voteRequestComplete })
+    } catch (e) {
+      dispatch({ type: ActionType.voteRequestError })
+    }
+  }
+
   return (
     <>
       <Category>Category: {getHumanReadableCategory(state.category)}</Category>
@@ -174,7 +215,7 @@ const EventRoulette = () => {
         sport={game.sport}
         state={game.state}
         withVoteButtons
-        onSubmit={() => dispatch({ type: ActionType.nextEvent })}
+        onSubmit={onVoteButtonClick}
       />
     </>
   )

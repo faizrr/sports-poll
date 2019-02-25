@@ -1,9 +1,9 @@
 import Event from './event'
 
 export enum VoteType {
-  home = 'home',
-  draw = 'draw',
-  away = 'away',
+  home = 'HOME',
+  draw = 'DRAW',
+  away = 'AWAY',
 }
 
 export type Vote = {

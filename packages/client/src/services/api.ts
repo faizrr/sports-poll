@@ -48,7 +48,7 @@ function handleErrors(response: any) {
 
 class API {
   async getAllGames(): Promise<{ list: Array<Event>; category: SportTypes }> {
-    await sleep(2000)
+    await sleep(1000)
 
     const sportType = getRandomSportType()
     const response = await fetch(`${API_BASE}/games?sport=${sportType}`)
@@ -65,7 +65,7 @@ class API {
     list: Array<Event>
     category: SportTypes
   }> {
-    await sleep(2000)
+    await sleep(1000)
 
     const token = Cookie.get(AUTH_COOKIE_KEY)
     const sportType = getRandomSportType()
@@ -87,7 +87,7 @@ class API {
   }
 
   async getVotes(): Promise<Vote[]> {
-    await sleep(2000)
+    await sleep(1000)
 
     const token = Cookie.get(AUTH_COOKIE_KEY)
     const response = await fetch(`${API_BASE}/games/voted`, {
@@ -104,11 +104,27 @@ class API {
     }))
   }
 
+  async voteForGame(gameId: number, voteType: VoteType) {
+    await sleep(1000)
+
+    const token = Cookie.get(AUTH_COOKIE_KEY)
+    const response = await fetch(`${API_BASE}/votes`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ gameId, type: voteType }),
+    })
+    handleErrors(response)
+  }
+
   async login(values: {
     login: string
     password: string
   }): Promise<{ token: string }> {
-    await sleep(2000)
+    await sleep(1000)
 
     const response = await fetch(`${API_BASE}/auth/signIn`, {
       method: 'POST',
@@ -127,7 +143,7 @@ class API {
   }
 
   async signUp(values: { login: string; password: string }) {
-    await sleep(2000)
+    await sleep(1000)
 
     const response = await fetch(`${API_BASE}/auth/signUp`, {
       method: 'POST',

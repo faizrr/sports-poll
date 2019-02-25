@@ -11,12 +11,14 @@ import * as MEDIA_QUERIES from '../constants/mediaQueries'
 
 // Contexts
 import { AuthContext } from '../dataContexts/auth'
+import { VoteType } from '../types/vote'
 
 type VoteButtonProps = {
   votesNumber: number
   children: any
   className?: string
-  onSubmit?: () => void
+  onSubmit: (voteType: VoteType) => Promise<void>
+  type: VoteType
 }
 
 // const VotesNumber = styled.div`
@@ -39,7 +41,7 @@ const VoteButton = (props: VoteButtonProps) => {
   const [showPopup, changePopupState] = useState(false)
 
   const onSubmit = token
-    ? props.onSubmit
+    ? () => props.onSubmit(props.type)
     : () => {
         changePopupState(true)
       }
