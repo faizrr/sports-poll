@@ -19,12 +19,12 @@ type VoteButtonProps = {
   onSubmit?: () => void
 }
 
-const VotesNumber = styled.div`
-  padding-top: 10px;
-  font-size: 10px;
-  color: ${COLORS.GRAY};
-  text-align: center;
-`
+// const VotesNumber = styled.div`
+//   padding-top: 10px;
+//   font-size: 10px;
+//   color: ${COLORS.GRAY};
+//   text-align: center;
+// `
 const Button = styled(ButtonBase)`
   width: 100%;
 
@@ -53,7 +53,7 @@ const VoteButton = (props: VoteButtonProps) => {
       <Button onClick={onSubmit} color="green">
         {props.children}
       </Button>
-      <VotesNumber>{props.votesNumber} votes</VotesNumber>
+      {/* <VotesNumber>{props.votesNumber} votes</VotesNumber> */}
     </div>
   )
 }
