@@ -71,7 +71,7 @@ const Event = (props: EventProps) => {
           name={props.homeName}
         />
         <GameMeta>
-          <div>{props.group}</div>
+          <div>{props.groupName}</div>
           <div>{props.country}</div>
         </GameMeta>
         <TeamCard

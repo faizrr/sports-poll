@@ -169,7 +169,7 @@ const EventRoulette = () => {
       <Event
         awayName={game.awayName}
         homeName={game.homeName}
-        group={game.group}
+        groupName={game.groupName}
         country={game.country}
         sport={game.sport}
         withVoteButtons

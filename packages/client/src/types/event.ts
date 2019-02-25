@@ -1,7 +1,7 @@
 interface Event {
   awayName: string
   homeName: string
-  group: string
+  groupName: string
   country: string
   id?: number
   sport: SportTypes
