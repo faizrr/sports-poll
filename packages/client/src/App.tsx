@@ -40,6 +40,7 @@ const Wrapper = styled.div`
 `
 const FirstPageContent = styled.div`
   height: 100vh;
+  min-height: 700px;
   position: relative;
   z-index: 1;
 
@@ -62,6 +63,7 @@ const FirstPageContent = styled.div`
   }
 
   ${MEDIA_QUERIES.MOBILE} {
+    min-height: initial;
     padding-top: 70px;
   }
 `
