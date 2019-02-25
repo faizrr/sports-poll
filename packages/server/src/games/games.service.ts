@@ -37,8 +37,9 @@ export class GamesService {
 
     const availableGames = await this.gamesRepository
       .createQueryBuilder('game')
-      .where(`game.id NOT IN (${excludeSqlQuery})`)
-      .where(`game.sport = :value`, { value: sport })
+      .where(`game.id NOT IN (${excludeSqlQuery}) AND game.sport = :value`, {
+        value: sport,
+      })
       .getMany()
 
     return availableGames
