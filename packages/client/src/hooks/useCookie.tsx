@@ -2,7 +2,6 @@ import { useState } from 'react'
 import * as Cookies from 'js-cookie'
 
 const defaultOptions = {
-  domain: '/',
   expires: 7,
 }
 

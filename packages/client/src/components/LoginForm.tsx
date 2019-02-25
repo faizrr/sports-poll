@@ -24,8 +24,14 @@ const LoginForm = (props: { closePopup: () => void }) => {
       setToken(token)
       props.closePopup()
     } catch (e) {
-      return {
-        [FORM_ERROR]: 'oops',
+      if (e.response.status === 401) {
+        return {
+          [FORM_ERROR]: 'User not found',
+        }
+      } else {
+        return {
+          [FORM_ERROR]: 'Something went wrong',
+        }
       }
     }
   }
@@ -33,7 +39,12 @@ const LoginForm = (props: { closePopup: () => void }) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit }) => {
+      render={({
+        handleSubmit,
+        submitError,
+        submitting,
+        dirtySinceLastSubmit,
+      }) => {
         return (
           <form onSubmit={handleSubmit}>
             <Field
@@ -50,7 +61,13 @@ const LoginForm = (props: { closePopup: () => void }) => {
               type="password"
             />
 
-            <Button color="green" type="submit">
+            <div>
+              {!submitting && !dirtySinceLastSubmit && submitError
+                ? submitError
+                : null}
+            </div>
+
+            <Button loading={submitting} color="green" type="submit">
               Log in
             </Button>
           </form>

@@ -9,6 +9,30 @@ function getRandomSportType(): SportTypes {
   return values[Math.floor(Math.random() * values.length)]
 }
 
+const API_BASE = `http://localhost:5000`
+
+// just to demonstrate loaders
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+class HttpError extends Error {
+  constructor(m: string) {
+    super(m)
+    Object.setPrototypeOf(this, HttpError.prototype)
+  }
+
+  response: any
+}
+
+function handleErrors(response: any) {
+  if (!response.ok) {
+    const e = new HttpError(response.statusText)
+    e.response = response
+    throw e
+  }
+
+  return response
+}
+
 class API {
   getGames(): { list: Array<Event>; category: SportTypes } {
     const type = getRandomSportType()
@@ -26,15 +50,44 @@ class API {
     }))
   }
 
-  login(values: { login: string; password: string }) {
+  async login(values: {
+    login: string
+    password: string
+  }): Promise<{ token: string }> {
+    await sleep(2000)
+
+    const response = await fetch(`${API_BASE}/auth/signIn`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ login: values.login, password: values.password }),
+    })
+    handleErrors(response)
+    const { token } = await response.json()
+
     return {
-      token: 'abcdef',
+      token,
     }
   }
 
-  signUp(values: { login: string; password: string }) {
+  async signUp(values: { login: string; password: string }) {
+    await sleep(2000)
+
+    const response = await fetch(`${API_BASE}/auth/signUp`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ login: values.login, password: values.password }),
+    })
+    handleErrors(response)
+    const { token } = await response.json()
+
     return {
-      token: 'abcdef',
+      token,
     }
   }
 }

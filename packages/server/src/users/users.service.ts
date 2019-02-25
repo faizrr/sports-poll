@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { UnauthorizedException } from '@nestjs/common'
+import { UnauthorizedException, ConflictException } from '@nestjs/common'
 import { User } from './users.entity'
 import { hash, compare } from 'bcrypt'
 
@@ -11,11 +11,18 @@ export class UsersService {
   ) {}
 
   async create(data: { login: string; password: string }) {
-    const user = new User()
-    user.login = data.login
-    user.passwordHash = await hash(data.password, 10)
+    const user = await this.usersRepository.findOne({
+      login: data.login,
+    })
+    if (user) {
+      throw new ConflictException()
+    }
 
-    return await this.usersRepository.save(user)
+    const newUser = new User()
+    newUser.login = data.login
+    newUser.passwordHash = await hash(data.password, 10)
+
+    return await this.usersRepository.save(newUser)
   }
 
   async findOneByLogin(login: string) {

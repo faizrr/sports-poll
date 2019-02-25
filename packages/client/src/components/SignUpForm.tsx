@@ -28,8 +28,14 @@ const SignUpForm = (props: { closePopup: () => void }) => {
       setToken(token)
       props.closePopup()
     } catch (e) {
-      return {
-        [FORM_ERROR]: 'oops',
+      if (e.response.status === 409) {
+        return {
+          [FORM_ERROR]: 'Already registered',
+        }
+      } else {
+        return {
+          [FORM_ERROR]: 'Something went wrong',
+        }
       }
     }
   }
@@ -37,7 +43,13 @@ const SignUpForm = (props: { closePopup: () => void }) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, values }) => {
+      render={({
+        handleSubmit,
+        submitError,
+        submitting,
+        dirtySinceLastSubmit,
+        values,
+      }) => {
         return (
           <form onSubmit={handleSubmit}>
             <Field
@@ -64,7 +76,13 @@ const SignUpForm = (props: { closePopup: () => void }) => {
               type="password"
             />
 
-            <Button color="green" type="submit">
+            <div>
+              {!submitting && !dirtySinceLastSubmit && submitError
+                ? submitError
+                : null}
+            </div>
+
+            <Button loading={submitting} color="green" type="submit">
               Sign up
             </Button>
           </form>
